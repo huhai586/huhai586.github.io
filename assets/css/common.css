@@ -13,3 +13,7 @@ div.homepage {
     list-style-type: none;
     font-size: 20px;
     line-height: 1.2em; }
+
+div.article-detail {
+  max-width: 1000px;
+  margin: 50px auto; }
