@@ -4,7 +4,7 @@ var gulp         = require('gulp'),
   sass         = require('gulp-sass');
 
 
-  gulp.task("jade", function () {
+  gulp.task("index_jade", function () {
   var feeds = ['./template/index.jade'];
   return gulp.src(feeds)
     .pipe(plumber())
@@ -17,3 +17,12 @@ var gulp         = require('gulp'),
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest("./assets/css"));
 });
+
+gulp.task("article_jade", function () {
+  return gulp.src("./articles/articles_in_markdown/*.jade")
+    .pipe(plumber())
+    .pipe(jade({ pretty: true }))
+    .pipe(gulp.dest('./articles/articles_in_html'))
+});
+
+gulp.task('build', ['index_jade', 'sass', 'article_jade']);
