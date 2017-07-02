@@ -1,8 +1,15 @@
+div.global-wrapper {
+  max-width: 1000px; }
+
 div.homepage {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
   flex: 1; }
+  div.homepage .section_item header {
+    text-transform: capitalize; }
   div.homepage ul {
-    list-style-type: none; }
+    list-style-type: none;
+    font-size: 20px;
+    line-height: 1.2em; }
