@@ -11,9 +11,16 @@
   flex-wrap: nowrap
   justify-content: flex-start
   flex: 1
-
+div.global-wrapper
+  max-width: 1000px
 div.homepage
   @include flex_container_default
+  .section_item
+    header
+      text-transform: capitalize
   ul
     list-style-type: none
+    font-size: 20px
+    line-height: 1.2em
+
 
