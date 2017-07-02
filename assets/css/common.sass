@@ -1,0 +1,19 @@
+@mixin flex_container_default
+  display: flex
+  flex-direction: row
+  flex-wrap: nowrap
+  justify-content: flex-start
+  flex: 1
+
+@mixin  flex_container_vertical
+  display: flex
+  flex-direction: column
+  flex-wrap: nowrap
+  justify-content: flex-start
+  flex: 1
+
+div.homepage
+  @include flex_container_default
+  ul
+    list-style-type: none
+
