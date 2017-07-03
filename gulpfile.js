@@ -1,7 +1,8 @@
 var gulp         = require('gulp'),
   plumber      = require('gulp-plumber'), // Prevent pipe breaking caused by errors from gulp plugins
   jade         = require('gulp-jade'),
-  sass         = require('gulp-sass');
+  sass         = require('gulp-sass'),
+getAlljadeFileName = require("./document_generate_control/Utils/common")
 
 
   gulp.task("index_jade", function () {
@@ -25,4 +26,9 @@ gulp.task("article_jade", function () {
     .pipe(gulp.dest('./articles/articles_in_html'))
 });
 
+gulp.task("g_jade_json", function(){
+  let filesName = getAlljadeFileName("./articles/articles_in_markdown")
+
+})
 gulp.task('build', ['index_jade', 'sass', 'article_jade']);
+
