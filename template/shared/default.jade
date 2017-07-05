@@ -9,13 +9,9 @@ html(dir="auto" lang="en")
             meta(name="apple-mobile-web-app-capable" content="yes")
             link(rel="stylesheet" href='/assets/css/normalize.css')
             link(rel="stylesheet" href='/assets/css/common.css')
+            link(rel="stylesheet" href='/assets/css/loader.css')
             link(rel="stylesheet" href='/assets/css/github-markdown.css')
             link(rel="stylesheet" href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css')
-            script(rel="text/javascript" src='/assets/js/library/jquery-3.2.1.min.js')
-            script(rel="text/javascript" src='/assets/js/library/template-web.js')
-            script(rel="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js')
-            script
-                | hljs.initHighlightingOnLoad()
     body(lang="en")
         div.global-wrapper
             block global
@@ -25,4 +21,9 @@ html(dir="auto" lang="en")
     //script(src="./bundle/common.js")
     //script(src="./bundle/default.js")
     block bottom_script
+        script(rel="text/javascript" src='/assets/js/library/jquery-3.2.1.min.js')
+        script(rel="text/javascript" src='/assets/js/library/template-web.js')
+        script(rel="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js')
+        script
+            | hljs.initHighlightingOnLoad()
         script(src="/assets/js/library/common.js")

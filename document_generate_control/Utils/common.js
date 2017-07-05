@@ -32,7 +32,7 @@ const gArticleJson = function(dir){
     if (!stats.isDirectory()){
       //store
       ++totalArtical
-      curArticle.filename=filename
+      curArticle.filename=(filename.replace(/\.jade/g,""))
       curArticle.path=fullname
       curArticle.ctime=stats.mtime
 
@@ -54,7 +54,7 @@ const gArticleJson = function(dir){
         }
         articles.push(curArticle)
         if(readFileCount === totalArtical){
-          fs.writeFile("allArticles.json",JSON.stringify(articles,null, 2),'utf-8',function(){
+          fs.writeFile("articles/allArticles.json",JSON.stringify({data: articles},null, 2),'utf-8',function(){
             console.log("所有文章信息输出完毕")
           })
         }

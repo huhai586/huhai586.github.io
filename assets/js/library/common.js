@@ -2,24 +2,19 @@
  * Created by huhai on 2017/7/4.
  */
 $(document).ready(function () {
-  //render homepage
+  //got template
+   $.get("/template/art_template/index.html").done((htmlStr)=>{
+    // got data
+     $.get("/articles/allArticles.json","json").done((data)=>{
+        template("home", htmlStr);
+        var compiledHTML =template("home", data)
+       $(".javascript .section_item_content").html(compiledHTML)
+       $(this).trigger("loading_off")
+     })
+  })
 
-  var x={
-    data: [
-      {
-        "filename": "about javascript.jade",
-        "path": "articles\\articles_in_markdown\\about javascript.jade",
-        "ctime": "2017-07-04T13:58:40.989Z",
-        "summary": "这是summary来自copy的文章"
-      },
-      {
-        "filename": "我的第一篇文章.jade",
-        "path": "articles\\articles_in_markdown\\我的第一篇文章.jade",
-        "ctime": "2017-07-04T14:45:56.840Z",
-        "summary": "这是summary来自第一篇的文章"
-      }
-    ]
-  }
-var str = template("tpl-user",x)
-  console.log(str)
+  $(document).on("loading_off", ()=>{
+    $(".loader").hide()
+  })
 })
+

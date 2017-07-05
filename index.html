@@ -8,40 +8,28 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="/assets/css/normalize.css">
     <link rel="stylesheet" href="/assets/css/common.css">
+    <link rel="stylesheet" href="/assets/css/loader.css">
     <link rel="stylesheet" href="/assets/css/github-markdown.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
-    <script rel="text/javascript" src="/assets/js/library/jquery-3.2.1.min.js"></script>
-    <script rel="text/javascript" src="/assets/js/library/template-web.js"></script>
-    <script rel="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad()</script>
   </head>
   <body lang="en">
     <div class="global-wrapper">
+      <div class="loader"></div>
       <div class="main-wrapper">
         <div class="homepage">
           <div class="section_item javascript">
             <header>javascript</header>
-            <div>
-              <ul>
-                <li><a href="articles/articles_in_html/我的第一篇文章.html">我的第一篇文章</a></li>
-              </ul>
-            </div>
+            <div class="section_item_content"></div>
           </div>
         </div>
       </div>
     </div>
-    <script id="tpl-user" type="text/html">
-    <ul>
-      {{each target}}
-      <li>
-        {{$index}} {{$value.filename}}
-      </li>
-      {{/each}}
-    </ul>
-    </script>
-  <div class="huhai"></div>
   </body>
   <!--script(src="./bundle/common.js")-->
   <!--script(src="./bundle/default.js")-->
+  <script rel="text/javascript" src="/assets/js/library/jquery-3.2.1.min.js"></script>
+  <script rel="text/javascript" src="/assets/js/library/template-web.js"></script>
+  <script rel="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad()</script>
   <script src="/assets/js/library/common.js"></script>
 </html>

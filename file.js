@@ -43,7 +43,7 @@ files.forEach(function (filename) {
       articles.push(curArticle)
       console.log("articles\/articles_in_markdown\about javascript.jade")
       // console.log(articles)
-      // fs.writeFileSync("allArticles.json",JSON.stringify(articles,null, 2),'utf-8')
+      fs.writeFileSync("allArticles.json",JSON.stringify(articles,null, 2),'utf-8')
 
     })
 
