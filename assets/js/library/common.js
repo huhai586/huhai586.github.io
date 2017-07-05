@@ -6,9 +6,10 @@ $(document).ready(function () {
    $.get("/template/art_template/index.html").done((htmlStr)=>{
     // got data
      $.get("/articles/allArticles.json","json").done((data)=>{
+       console.log("所有文章的数据", data)
         template("home", htmlStr);
-        var compiledHTML =template("home", data)
-       $(".javascript .section_item_content").html(compiledHTML)
+        let compiledHTML =template("home", data)
+       $(".javascript .section_item_content").html(compiledHTML).hide().fadeIn(300)
        $(this).trigger("loading_off")
      })
   })

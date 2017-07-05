@@ -46,11 +46,16 @@ const gArticleJson = function(dir){
         // extract the hide-summary
         let str = buffer.toString();
         var patt = new RegExp(/<hide-summary>(.*)<\/hide-summary>/,"g");
+        var pattIMG = new RegExp(/<hide-img>(.*)<\/hide-img>/,"g");
         let matchSummary = patt.exec(str);
+        let matchIMG =pattIMG.exec(str);
         if(!matchSummary){
           console.warn(filename+ '  没有发现summary');
         }else{
           curArticle.summary=matchSummary[1]
+        }
+        if(!matchIMG){
+          curArticle.titleIMG=matchIMG[1]
         }
         articles.push(curArticle)
         if(readFileCount === totalArtical){
