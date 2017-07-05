@@ -16,4 +16,6 @@ div.homepage {
     line-height: 1.2em; }
 
 div.article-detail {
-  max-width: 1000px; }
+  max-width: 1000px;
+  padding: 50px;
+  padding-top: 30px; }
