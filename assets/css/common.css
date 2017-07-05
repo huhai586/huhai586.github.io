@@ -1,6 +1,5 @@
-div.global-wrapper {
-  max-width: 1000px;
-  margin: 50px auto; }
+.hide-summary {
+  display: none; }
 
 div.homepage {
   display: flex;
@@ -10,12 +9,12 @@ div.homepage {
   flex: 1; }
   div.homepage .section_item header {
     text-transform: capitalize; }
+  div.homepage .section_item .section_item_content {
+    margin-top: 20px; }
   div.homepage ul {
     list-style-type: none;
     font-size: 20px;
     line-height: 1.2em; }
 
 div.article-detail {
-  max-width: 1000px;
-  padding: 1em;
   padding-top: 30px; }
