@@ -30,5 +30,5 @@ gulp.task("g_jade_json", function(){
   gArticleJson("./articles/articles_in_markdown")
 
 })
-gulp.task('build', ['index_jade', 'sass', 'article_jade']);
+gulp.task('build', ['index_jade', 'sass', 'article_jade',"g_jade_json"]);
 

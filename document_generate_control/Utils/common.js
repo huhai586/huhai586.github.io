@@ -21,23 +21,24 @@ const  getAlljadeFileName = function(src) {
 const gArticleJson = function(dir){
   var files = fs.readdirSync(dir);
   const articles = []
+  let totalArtical = 0
+  let readFileCount = 0
   files.forEach(function (filename) {
     let curArticle={}
 
     var fullname = path.join(dir,filename);
 
     var stats = fs.statSync(fullname);
-    //filename += '/';
-    // process.stdout.write(filename + '\t' +
-    //   stats.size + '\t' +
-    //   stats.mtime + '\n'
-    // );
     if (!stats.isDirectory()){
+      //store
+      ++totalArtical
       curArticle.filename=filename
-      curArticle.fullname=fullname
+      curArticle.path=fullname
+      curArticle.ctime=stats.mtime
 
       process.stdout.write("准备读取....." + filename +"     路径在"+fullname+"\n")
       fs.readFile(fullname,(error,buffer)=>{
+        ++readFileCount
         if(error){
           console.log(error);
           return
@@ -52,15 +53,21 @@ const gArticleJson = function(dir){
           curArticle.summary=matchSummary[1]
         }
         articles.push(curArticle)
+        if(readFileCount === totalArtical){
+          fs.writeFile("allArticles.json",JSON.stringify(articles,null, 2),'utf-8',function(){
+            console.log("所有文章信息输出完毕")
+          })
+        }
       })
 
     }
   });
 
-  fs.writeFile("allArticles.json",JSON.stringify(articles,null, 2),'utf-8',function(){
-    console.log("所有文章信息输出完毕")
-  })
+
 }
+
+// gArticleJson("./articles/articles_in_markdown")
+
 module.exports={
   getAlljadeFileName: getAlljadeFileName,
   gArticleJson: gArticleJson

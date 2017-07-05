@@ -13,8 +13,7 @@ const articles = []
 files.forEach(function (filename) {
   let curArticle={}
 
-  var fullname = path.join(dir,filename);
-
+  var fullname = path.join(dir, filename);
   var stats = fs.statSync(fullname);
   //filename += '/';
   // process.stdout.write(filename + '\t' +
@@ -42,9 +41,9 @@ files.forEach(function (filename) {
         curArticle.summary=matchSummary[1]
       }
       articles.push(curArticle)
-
-      console.log(articles)
-      fs.writeFileSync("allArticles.json",JSON.stringify(articles,null, 2),'utf-8')
+      console.log("articles\/articles_in_markdown\about javascript.jade")
+      // console.log(articles)
+      // fs.writeFileSync("allArticles.json",JSON.stringify(articles,null, 2),'utf-8')
 
     })
 

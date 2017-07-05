@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/css/github-markdown.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
     <script rel="text/javascript" src="/assets/js/library/jquery-3.2.1.min.js"></script>
+    <script rel="text/javascript" src="/assets/js/library/template-web.js"></script>
     <script rel="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad()</script>
   </head>
@@ -29,7 +30,18 @@
         </div>
       </div>
     </div>
+    <script id="tpl-user" type="text/html">
+    <ul>
+      {{each target}}
+      <li>
+        {{$index}} {{$value.filename}}
+      </li>
+      {{/each}}
+    </ul>
+    </script>
+  <div class="huhai"></div>
   </body>
   <!--script(src="./bundle/common.js")-->
   <!--script(src="./bundle/default.js")-->
+  <script src="/assets/js/library/common.js"></script>
 </html>
