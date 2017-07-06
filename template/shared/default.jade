@@ -19,7 +19,9 @@ html(dir="auto" lang="en")
             block global
             div.main-wrapper
                 block content
-                block footer
+                block  disqus
+                    include ./disqus
+        script#dsq-count-scr(src="//huhai.disqus.com/count.js", async)
     //script(src="./bundle/common.js")
     //script(src="./bundle/default.js")
     block bottom_script
