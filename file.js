@@ -10,22 +10,24 @@ let dir = "./articles/articles_in_markdown"
 
 var files = fs.readdirSync(dir);
 const articles = []
+let totalArtical = 0
+let readFileCount = 0
 files.forEach(function (filename) {
   let curArticle={}
 
-  var fullname = path.join(dir, filename);
+  var fullname = path.join(dir,filename);
+
   var stats = fs.statSync(fullname);
-  //filename += '/';
-  // process.stdout.write(filename + '\t' +
-  //   stats.size + '\t' +
-  //   stats.mtime + '\n'
-  // );
   if (!stats.isDirectory()){
-    curArticle.filename=filename
-    curArticle.fullname=fullname
+    //store
+    ++totalArtical
+    curArticle.filename=(filename.replace(/\.jade/g,""))
+    curArticle.path=fullname
+    curArticle.ctime=stats.mtime
 
     process.stdout.write("准备读取....." + filename +"     路径在"+fullname+"\n")
     fs.readFile(fullname,(error,buffer)=>{
+      ++readFileCount
       if(error){
         console.log(error);
         return
@@ -33,20 +35,26 @@ files.forEach(function (filename) {
       // extract the hide-summary
       let str = buffer.toString();
       var patt = new RegExp(/<hide-summary>(.*)<\/hide-summary>/,"g");
+      var pattIMG = new RegExp(/<hide-img>(.*)<\/hide-img>/,"g");
       let matchSummary = patt.exec(str);
+      let matchIMG =pattIMG.exec(str);
       if(!matchSummary){
         console.warn(filename+ '  没有发现summary');
       }else{
-        console.log("发现summary", matchSummary[1])
         curArticle.summary=matchSummary[1]
       }
+      if(!matchIMG){
+        console.warn("没有发现title-img")
+      }else{
+        curArticle.titleIMG=(/src="(.*)"/g.exec(matchIMG[1]))[1]
+      }
       articles.push(curArticle)
-      console.log("articles\/articles_in_markdown\about javascript.jade")
-      // console.log(articles)
-      fs.writeFileSync("allArticles.json",JSON.stringify(articles,null, 2),'utf-8')
-
+      if(readFileCount === totalArtical){
+        fs.writeFile("articles/allArticles.json",JSON.stringify({data: articles},null, 2),'utf-8',function(){
+          console.log("所有文章信息输出完毕")
+        })
+      }
     })
 
   }
 });
-

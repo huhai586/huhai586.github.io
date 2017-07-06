@@ -55,7 +55,9 @@ const gArticleJson = function(dir){
           curArticle.summary=matchSummary[1]
         }
         if(!matchIMG){
-          curArticle.titleIMG=matchIMG[1]
+          console.warn("没有发现title-img")
+        }else{
+          curArticle.titleIMG=(/src="(.*)"/g.exec(matchIMG[1]))[1]
         }
         articles.push(curArticle)
         if(readFileCount === totalArtical){
