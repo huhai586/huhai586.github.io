@@ -3,14 +3,16 @@
     {
       "filename": "javascript 打包工具是如何工作的",
       "path": "articles\\articles_in_markdown\\javascript 打包工具是如何工作的.jade",
-      "ctime": "2017-07-06T14:21:02.889Z",
-      "summary": "这是summary来自copy的文章",
-      "titleIMG": "/assets/images/2.png"
+      "ctime": "2017-07-15T09:39:43.535Z",
+      "summary": "javascript 打包器将你的js代码及相关依赖放入一个js文件里面",
+      "titleIMG": "/assets/images/webpack.png"
     },
     {
       "filename": "webpack基础学习(一)",
       "path": "articles\\articles_in_markdown\\webpack基础学习(一).jade",
-      "ctime": "2017-07-15T03:36:36.490Z"
+      "ctime": "2017-07-15T09:39:43.541Z",
+      "summary": "关于webpack的相关概念及有趣插件介绍",
+      "titleIMG": "/assets/images/webpack.png"
     }
   ]
 }

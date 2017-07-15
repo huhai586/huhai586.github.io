@@ -18,35 +18,93 @@
     <div class="global-wrapper container">
       <div class="main-wrapper">
         <div class="article-detail markdown-body">
-          <hide-summary>这是summary来自copy的文章</hide-summary>
-          <hide-img><img src="/assets/images/2.png" /> </hide-img>
-          <h2>Welcome to MarkdownPad 2</h2>
-          <p><strong>MarkdownPad</strong> is a full-featured Markdown editor for Windows.</p>
-          <h3>Built exclusively for Markdown</h3>
-          <p>Enjoy first-class Markdown support with easy access to  Markdown syntax and convenient keyboard shortcuts.</p>
-          <p>Give them a try:</p>
+          <hide-img><img src="/assets/images/webpack.png"/></hide-img>
+          <hide-summary>javascript 打包器将你的js代码及相关依赖放入一个js文件里面</hide-summary>
+          <h2 id="javascript-">javascript 打包工具是怎么工作的</h2>
+          <p>首先，什么是javascript 打包工具，javascript bundler把你的代码及相关依赖放入一个js文件里面<br>，现在已经有很多打包工具了比如<a href="http://browserify.org/">browserify</a>和<a href="https://webpack.github.io/">webpack</a></p>
+          <p>为什么我们需要这个东西呢，主要问题是js代码对依赖的处理比较弱，javascript没有一个标准在代码里面去处理依赖。<br>没有`import`或者`require`，（现在有ES6标准的import标准了，但是没有被普遍的被浏览器支持）</p>
+          <p>如何使用JavaScript import和export？如何让别人能访问你的代码，或者你导入别人提供的代码？唯一的方法一直是通过全局变量。<br>例如，如果你想使用jQuery：</p>
+          <pre><code class="lang-$xslt">&lt;script src=&quot;//code.jquery.com/jquery-1.12.0.min.js&quot;&gt;&lt;/script&gt;
+          &lt;script&gt;
+          // `$` global variable available here
+          &lt;/script&gt;
+          </code></pre>
+          <p>你想项目代码可能是这么组织的（分成多个小的js文件）</p>
+          <pre><code class="lang-$xslt">&lt;script src=&quot;//code.jquery.com/jquery-1.12.0.min.js&quot;&gt;&lt;/script&gt;
+          &lt;script src=&quot;/js/foo.js&quot;&gt;&lt;/script&gt;
+          &lt;script src=&quot;/js/bar.js&quot;&gt;&lt;/script&gt;
+          &lt;script src=&quot;/js/foobar.js&quot;&gt;&lt;/script&gt;
+          &lt;script&gt;
+          // Here goes some code
+          &lt;/script&gt;
+          </code></pre>
+          <p>在script标签里面你能使用所有的依赖，但是问题来了，如果foo.js依赖bar.js呢？<br>我们就需要调整script加载的顺序，这下就变糟糕了</p>
           <ul>
-          <li><strong>Bold</strong> (<code>Ctrl+B</code>) and <em>Italic</em> (<code>Ctrl+I</code>)</li>
-          <li>Quotes (<code>Ctrl+Q</code>)</li>
-          <li>Code blocks (<code>Ctrl+K</code>)</li>
-          <li>Headings 1, 2, 3 (<code>Ctrl+1</code>, <code>Ctrl+2</code>, <code>Ctrl+3</code>)</li>
-          <li>Lists (<code>Ctrl+U</code> and <code>Ctrl+Shift+O</code>)</li>
-          </ul>
-          <h3>See your changes instantly with LivePreview</h3>
-          <p>Don't guess if your <a href="http://markdownpad.com">hyperlink syntax</a> is correct; LivePreview will show you exactly what your document looks like every time you press a key.</p>
-          <h3>Make it your own</h3>
-          <p>Fonts, color schemes, layouts and stylesheets are all 100% customizable so you can turn MarkdownPad into your perfect editor.</p>
-          <h3>A robust editor for advanced Markdown users</h3>
-          <p>MarkdownPad supports multiple Markdown processing engines, including standard Markdown, Markdown Extra (with Table support) and GitHub Flavored Markdown.</p>
-          <p>With a tabbed document interface, PDF export, a built-in image uploader, session management, spell check, auto-save, syntax highlighting and a built-in CSS management interface, there's no limit to what you can do with MarkdownPad.</p>
-          <p><code>hello javascript</code></p>
-          <p>
-          <pre>
-          <code>
-          function huhai(){};
-          console.log(123)</code>
-           </pre>
-          </p>
+          <li>使用全局变量，使我们需要尽量避免的</li><li>你需要小心的调整script的顺序</li><li>代码将变的越来越难以维护（因为有复杂的依赖越来越多）</li></ul>
+          <p>这种情况在其它环境是怎么解决的呢？<a href="https://nodejs.org/api/modules.html">Node.js自己的模块系统</a>,使用了require()<br>和exports来解决这问题（<a href="http://wiki.commonjs.org/wiki/Modules/1.1">基于commonjs modules模块草案</a>）<br>这就是我们经常看到“commonjs”的原因</p>
+          <p>我们能否参照node，在前端也实现require和export呢？</p>
+          <pre><code class="lang-$xslt">&lt;script&gt;
+          var $ = require(&#39;jquery&#39;)
+          var foo = require(&#39;./js/foo&#39;)
+          var bar = require(&#39;./js/bar&#39;)
+          var foobar = require(&#39;./js/foobar&#39;)
+          &lt;/script&gt;
+          </code></pre>
+          <p>看起来不错，但是有一个技术限制： require()需要被<code>同步</code>实现，但是http是可以异步的，为了解决问题，我们<br>就将所有的代码及其依赖放在一个文件里面，在内存里面加载，当我想要用的时候，就用require。</p>
+          <blockquote>
+          <p>Note：把所有的code放入一个文件，也可以减少http请求问题(不包括http/2，因为http/2能一条TCP连接发送多个请求，<br>但是http/2还没有被广泛的支持)</p>
+          <p>Note:  commonJS不是唯一的模块加载方法，,还有其它的，比如AMD，<a href="https://webpack.github.io/docs/amd.html">webpck也支持AMD方式</a>加载<br>AMD是可以异步加载的，本文章主要注意力放在require()和exports</p>
+          </blockquote>
+          <p>现在我们知道了javascript 打包器做什么和为什么要这样做了，但是它是怎么做的呢？最后的打包文件看起来是怎么样的，<br>它怎么完成了对依赖的处理？下面是一个伪代码来说明。</p>
+          <pre><code class="lang-$xslt">// common code for implementing require()/exports
+          var dependencies = {} // loaded modules
+          var modules = {} // code of your dependencies
+          // require function
+          var require = function (module) {
+           if (!dependencies[module]) {
+             // module not loaded, let’s load it
+             var exports = {}
+             modules[module](exports)
+             // now in `exports` we have the things made “public”
+             dependencies[module] = exports
+           }
+           return dependencies[module]
+          }
+          // dependendencies
+          modules[&#39;jquery&#39;] = function (exports) {
+            // code of jquery
+          }
+          modules[&#39;foo&#39;] = function (exports) {
+            // code of bar.js
+            exports.helloWorld = function () {
+              console.log(&#39;hello world&#39;)
+            }
+          }
+          modules[&#39;bar&#39;] = function (exports) {
+            // code of bar.js
+          }
+          // etc…
+          // here goes the code of your &quot;entry file&quot;.
+          // Which is the entry point of your code
+          // For example:
+          var $ = require(&#39;jquery&#39;)
+          var foo = require(&#39;foo&#39;)
+          var bar = require(&#39;bar&#39;)
+          foo.helloWorld()
+          </code></pre>
+          <p>在这段代码里面，很多require的特性没有被覆盖到，但是阐述了require的主要特点<br>除此之外，javascript打包器还能帮我们做其它有趣的事情</p>
+          <ul>
+          <li><p>我们能使用require加载npm包（因为require/exports 在node.JS也已经被同样的定义了，它们能主动去查找node_modules里面<br>的依赖）</p>
+          </li><li><p>因为require和exports在node中被同样实现，行为是相同的。所以我们能够写跨平台的代码，也就是最近比较兴起的前端同构，<br>，你还可以轻松检测代码在哪个平台中运行，并且在每种情况下执行不同的操作,比如typeof window！==&#39;undefined&#39;可以使用AJAX，在Node.js.中就使用http核心模块。</p>
+          </li><li>在打包过程中，javascript打包器可以转义你的代码，比如ES6-&gt;ES5</li><li>还可以移除没有被使用的代码</li></ul>
+          <blockquote>
+          <p>webpack走的更远，你不仅可以require你的javascript代码，还可以require静态资源，比如css或者images，还可以<br>对这些静态资源执行转换（使用loaders）,比如</p>
+          <pre><code class="lang-$xslt">require(&quot;!style!css!less!bootstrap/less/bootstrap.less&quot;);
+          </code></pre>
+          <p>让我们开始使用javascript打包器吧</p>
+          </blockquote>
+          <p>参考连接：<br>[How JavaScript bundlers work][1]</p>
+          <p>[1]: <a href="https://medium.com/@gimenete/how-javascript-bundlers-work-1fc0d0caf2da">https://medium.com/@gimenete/how-javascript-bundlers-work-1fc0d0caf2da</a> &quot;How JavaScript bundlers work<br>&quot;</p>
         </div>
         <div id="disqus_thread">
           <script>

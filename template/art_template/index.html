@@ -1,11 +1,13 @@
 
     {{each data}}
     <div class="media">
+        {{if $value.titleIMG}}
         <div class="media-left">
             <a href="/articles/articles_in_html/{{$value.filename}}.html">
-            <img class="media-object" src="{{$value.titleIMG}}" alt="64x64" style="width: 64px; height: 64px;" data-holder-rendered="true">
-             </a>
+                <img class="media-object" src="{{$value.titleIMG}}" alt="64x64" style="width: 64px; height: 64px;" data-holder-rendered="true">
+            </a>
         </div>
+        {{/if}}
         <div class="media-body">
             <a href="/articles/articles_in_html/{{$value.filename}}.html">
             <h4 class="media-heading">{{$value.filename}}</h4>
