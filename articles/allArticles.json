@@ -1,8 +1,8 @@
 {
   "data": [
     {
-      "filename": "about javascript",
-      "path": "articles\\articles_in_markdown\\about javascript.jade",
+      "filename": "javascript 打包工具是如何工作的",
+      "path": "articles\\articles_in_markdown\\javascript 打包工具是如何工作的.jade",
       "ctime": "2017-07-06T14:21:02.889Z",
       "summary": "这是summary来自copy的文章",
       "titleIMG": "/assets/images/2.png"
@@ -10,8 +10,7 @@
     {
       "filename": "webpack基础学习(一)",
       "path": "articles\\articles_in_markdown\\webpack基础学习(一).jade",
-      "ctime": "2017-07-13T16:11:47.166Z",
-      "summary": "这是summary来自第一篇的文章"
+      "ctime": "2017-07-15T03:36:36.490Z"
     }
   ]
 }
