@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html dir="auto" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>胡海的个人网站</title>
+    <link href="/assets/images/blog.ico" rel="shortcut icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <link rel="stylesheet" href="/assets/css/loader.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body lang="en">
+    <div class="global-wrapper container">
+      <div class="main-wrapper">
+        <div class="article-detail markdown-body">
+          <hide-img><img src="/assets/images/webpack.png"/></hide-img>
+          <hide-summary>介绍webpack 对CommonJs规范的实现之(require)</hide-summary>
+          <h2 id="webpack-commonjs-">webpack 对CommonJs规范的实现</h2>
+            <p>CommonJS是服务器端模块的规范，Node.js采用了这个规范。webpack打包工具能让网页兼容commonJS，那么它是怎么做到的呢？</p>
+            <p>要想让<a href="http://nodejs.cn/api/modules.html#modules_module_require_id">commonJS规范</a>在浏览器上生效，那么我们就需要对这个规范在client上实现一遍(需要我们要重新定义module 和require)</p>
+            <blockquote>
+            <p>commonJs规范网址http://nodejs.cn/api/modules.html#modules_module_require_id</p>
+            </blockquote>
+            <p>下面是测试代码</p>
+            <p>exports_1.js</p>
+            <pre><code class="lang-$xslt">/**
+             * Created by huhai on 2017/7/16.
+             */
+            const name=&quot;我是第一&quot;
+            module.exports= {
+              name: name,
+              showName: function(){
+                console.log(&quot;name is: &quot;,this.name)
+              }
+            }
+            </code></pre>
+            <p>exports_2.js</p>
+            <pre><code class="lang-$xslt">/**
+             * Created by huhai on 2017/7/16.
+             */
+            const name=&quot;我是第二&quot;
+            module.exports= {
+              name: name,
+              showName: function(){
+                console.log(&quot;name is: &quot;,this.name)
+              }
+            }
+            </code></pre>
+            <p>main.js</p>
+            <pre><code class="lang-$xslt">/**
+             * Created by huhai on 2017/7/16.
+             */
+            let ONE = require(&#39;./exports_1&#39;)
+            let TWO = require(&#39;./exports_2&#39;)
+          
+            console.log(ONE,TWO)
+            </code></pre>
+            <p>经过webpack bundle之后，生成的代码为</p>
+            <pre><code class="lang-$xslt">/******/ (function(modules) { // webpackBootstrap
+            /******/     // The module cache
+            /******/     var installedModules = {};
+            /******/
+            /******/     // The require function
+            /******/     function __webpack_require__(moduleId) {
+            /******/
+            /******/         // Check if module is in cache
+            /******/         if(installedModules[moduleId]) {
+            /******/             return installedModules[moduleId].exports;
+            /******/         }
+            /******/         // Create a new module (and put it into the cache)
+            /******/         var module = installedModules[moduleId] = {
+            /******/             i: moduleId,
+            /******/             l: false,
+            /******/             exports: {}
+            /******/         };
+            /******/
+            /******/         // Execute the module function
+            /******/         modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+            /******/
+            /******/         // Flag the module as loaded
+            /******/         module.l = true;
+            /******/
+            /******/         // Return the exports of the module
+            /******/         return module.exports;
+            /******/     }
+            /******/
+            /******/
+            /******/     // expose the modules object (__webpack_modules__)
+            /******/     __webpack_require__.m = modules;
+            /******/
+            /******/     // expose the module cache
+            /******/     __webpack_require__.c = installedModules;
+            /******/
+            /******/     // define getter function for harmony exports
+            /******/     __webpack_require__.d = function(exports, name, getter) {
+            /******/         if(!__webpack_require__.o(exports, name)) {
+            /******/             Object.defineProperty(exports, name, {
+            /******/                 configurable: false,
+            /******/                 enumerable: true,
+            /******/                 get: getter
+            /******/             });
+            /******/         }
+            /******/     };
+            /******/
+            /******/     // getDefaultExport function for compatibility with non-harmony modules
+            /******/     __webpack_require__.n = function(module) {
+            /******/         var getter = module &amp;&amp; module.__esModule ?
+            /******/             function getDefault() { return module[&#39;default&#39;]; } :
+            /******/             function getModuleExports() { return module; };
+            /******/         __webpack_require__.d(getter, &#39;a&#39;, getter);
+            /******/         return getter;
+            /******/     };
+            /******/
+            /******/     // Object.prototype.hasOwnProperty.call
+            /******/     __webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+            /******/
+            /******/     // __webpack_public_path__
+            /******/     __webpack_require__.p = &quot;&quot;;
+            /******/
+            /******/     // Load entry module and return exports
+            /******/     return __webpack_require__(__webpack_require__.s = 0);
+            /******/ })
+            /************************************************************************/
+            /******/ ([
+            /* 0 */
+            /***/ (function(module, exports, __webpack_require__) {
+            debugger
+            /**
+             * Created by huhai on 2017/7/16.
+             */
+            let ONE = __webpack_require__(1);
+            let TWO = __webpack_require__(2);
+          
+            console.log(ONE, TWO);
+          
+            /***/ }),
+            /* 1 */
+            /***/ (function(module, exports) {
+          
+            /**
+             * Created by huhai on 2017/7/16.
+             */
+            const name = &quot;我是第一&quot;;
+            module.exports = {
+              name: name,
+              showName: function () {
+                console.log(&quot;name is: &quot;, this.name);
+              }
+            };
+          
+            /***/ }),
+            /* 2 */
+            /***/ (function(module, exports) {
+          
+            /**
+             * Created by huhai on 2017/7/16.
+             */
+            const name = &quot;我是第二&quot;;
+            module.exports = {
+              name: name,
+              showName: function () {
+                console.log(&quot;name is: &quot;, this.name);
+              }
+            };
+          
+            /***/ })
+            /******/ ]);
+            </code></pre>
+            <p>在这段代码里面最重要的是</p>
+            <pre><code class="lang-$xslt">/******/     function __webpack_require__(moduleId) {
+            /******/
+            /******/         // Check if module is in cache
+                                // webpack缓存了每个对象的module.exports
+            /******/         if(installedModules[moduleId]) {
+            /******/             return installedModules[moduleId].exports;
+            /******/         }
+            /******/         // Create a new module (and put it into the cache)
+            /******/         var module = installedModules[moduleId] = {
+            /******/             i: moduleId,
+            /******/             l: false,
+            /******/             exports: {}
+            /******/         };
+            /******/
+            /******/         // Execute the module function
+                                //
+            /******/         modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+            /******/
+            /******/         // Flag the module as loaded
+            /******/         module.l = true;
+            /******/
+            /******/         // Return the exports of the module
+            /******/         return module.exports;
+            /******/     }
+            </code></pre>
+            <p>通过这段代码</p>
+            <pre><code class="lang-$xslt">modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+            </code></pre>
+            <p>巧妙的将模块内部的modle.exports 带出来了</p>
+            <p>然后</p>
+            <pre><code class="lang-$xslt">return module.exports;
+            </code></pre>
+            <p>自此webpack 对require功能在client中实现了</p>
+            <p>由于client和node运行的环境不一样，所以不能完全对commonJS规范在client实现<br>，比如运行node的fs.readFile的话，就会直接报错，可以使用各种loader在node端来实现readFile</p>
+        </div>
+        <div id="disqus_thread">
+          <script>
+          
+          /**
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+          /*
+          var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+          */
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://huhai.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+    <script id="dsq-count-scr" src="//huhai.disqus.com/count.js" async></script>
+  </body>
+  <!--script(src="./bundle/common.js")-->
+  <!--script(src="./bundle/default.js")-->
+  <script rel="text/javascript" src="/assets/js/library/jquery-3.2.1.min.js"></script>
+  <script rel="text/javascript" src="/assets/js/library/template-web.js"></script>
+  <script rel="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad()</script>
+  <script src="/assets/js/library/common.js"></script>
+</html>

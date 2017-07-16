@@ -8,6 +8,13 @@
       "titleIMG": "/assets/images/webpack.png"
     },
     {
+      "filename": "webpack 对CommonJs规范的实现",
+      "path": "articles\\articles_in_markdown\\webpack 对CommonJs规范的实现.jade",
+      "ctime": "2017-07-16T10:57:41.448Z",
+      "summary": "介绍webpack 对CommonJs规范的实现之(require)",
+      "titleIMG": "/assets/images/webpack.png"
+    },
+    {
       "filename": "webpack基础学习(一)",
       "path": "articles\\articles_in_markdown\\webpack基础学习(一).jade",
       "ctime": "2017-07-15T09:39:43.541Z",
